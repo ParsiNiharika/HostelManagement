@@ -12,6 +12,7 @@ class Home extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
+    print("hello");
     return Scaffold(
         appBar: AppBar(
         backgroundColor: Colors.pink,
@@ -22,7 +23,8 @@ class Home extends StatelessWidget {
     ),
     ),
         ),
-    body: Container(
+    body:
+    Container(
       child: SafeArea(
           bottom: false,
           child: Stack(children: <Widget>[
@@ -31,6 +33,7 @@ class Home extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
+
                       SizedBox(
                         height: 30,
                       ),
