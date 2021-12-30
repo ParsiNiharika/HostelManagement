@@ -1,12 +1,44 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'managemntHomeScreen.dart';
+
 class AddStudent extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   String? name = "";
   String? phoneNo = "";
   String? fatherNo = "";
   String? rollno = "";
+
+  Future<void> _showMyDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Student is added!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('The student\'s data is successfully added to database.\n'),
+                Text('Please click \'OK\' to continue.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK',style: TextStyle(fontSize: 20),),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                    return ManagementHomeScreen();
+                }));
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +161,7 @@ class AddStudent extends StatelessWidget {
                                   .collection('students')
                                   .doc(rollno)
                                   .set({'name': name, 'rollno': rollno, 'phoneNo': phoneNo, 'fatherNo': fatherNo});
-                              Navigator.of(context).pop();
+                              _showMyDialog(context);
                               //ManagementHomeScreen();
                             } ,
                             child: Padding(
