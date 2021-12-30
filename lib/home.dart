@@ -12,7 +12,6 @@ class Home extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    print("hello");
     return Scaffold(
         appBar: AppBar(
         backgroundColor: Colors.pink,
