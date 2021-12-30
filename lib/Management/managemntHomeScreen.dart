@@ -48,7 +48,7 @@ class ManagementHomeScreen extends StatelessWidget {
                               child: Padding(
                                 padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                                 child: Text(
-                                  'Add Student',
+                                  'ADD STUDENT',
                                   style: TextStyle(
                                     fontSize: 18,
                                   ),
@@ -75,7 +75,7 @@ class ManagementHomeScreen extends StatelessWidget {
                               child: Padding(
                                 padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                                 child: Text(
-                                  'Bus Timings',
+                                  'BUS TIMINGS',
                                   style: TextStyle(
                                     fontSize: 18,
                                   ),
