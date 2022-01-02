@@ -72,7 +72,9 @@ class Plumber extends StatelessWidget {
         future: getComplaints(),
     builder: (context, AsyncSnapshot<void> snapshot) {
     var complaintList = complaintData.toList();
-    print("h1");
+    DateTime now = new DateTime.now();
+    DateTime date = new DateTime(now.day);
+    print(now.weekday);
     return ListView.builder(
         itemCount: complaintList.length,
         itemBuilder: (context, index) {

@@ -5,6 +5,7 @@ import './addStudent.dart';
 import './busTimings.dart';
 import './ContactUs.dart';
 import './Complaints.dart';
+import 'Menu.dart';
 
 class ManagementHomeScreen extends StatelessWidget {
 
@@ -124,7 +125,11 @@ class ManagementHomeScreen extends StatelessWidget {
                             constraints:
                             BoxConstraints.tightFor(width: 250, height: 50),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                                  return Menu();
+                                }));
+                              },
                               child: Padding(
                                 padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                                 child: Text(

@@ -16,8 +16,9 @@ class Home extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:Colors.black87,
       appBar: AppBar(
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.blueAccent,
         title: Text(
           "HOSTEL MANAGEMENT",
           style: TextStyle(
@@ -25,7 +26,9 @@ class Home extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
+      body:
+      Container(
+
         child: SafeArea(
             bottom: false,
             child: Stack(children: <Widget>[
