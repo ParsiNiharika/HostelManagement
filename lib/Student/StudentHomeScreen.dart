@@ -131,6 +131,7 @@ class StudentHomeScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        SizedBox(height: 10),
                         Center(
                           child: ConstrainedBox(
                             constraints:
@@ -157,7 +158,6 @@ class StudentHomeScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 10),
 
                       ]))
             ])),
