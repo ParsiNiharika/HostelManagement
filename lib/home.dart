@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'Management/ManagementLogin.dart';
+import 'Student/StudentLogin.dart';
 
 class Home extends StatelessWidget {
   showManagmentScreen(context) {
@@ -9,6 +10,16 @@ class Home extends StatelessWidget {
       MaterialPageRoute(
         builder: (_) {
           return ManagementLogin();
+        },
+      ),
+    );
+  }
+
+  showStudentScreen(context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) {
+          return StudentLogin();
         },
       ),
     );
@@ -45,7 +56,7 @@ class Home extends StatelessWidget {
                         constraints:
                             BoxConstraints.tightFor(width: 250, height: 50),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => showStudentScreen(context),
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                             child: Text(
