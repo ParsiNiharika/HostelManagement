@@ -19,15 +19,15 @@ class Complaint {
 }
 
 
-class Carpenter extends StatelessWidget {
+class Food extends StatelessWidget {
 
   List<Complaint> complaintData = [];
 
   Future<void> getComplaints() async {
     await FirebaseFirestore.instance
         .collection('Complaints')
-        .doc('carpenter')
-        .collection('carpenter')
+        .doc('food')
+        .collection('food')
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
@@ -50,7 +50,7 @@ class Carpenter extends StatelessWidget {
     Navigator.pushReplacement(
         context,
         new MaterialPageRoute(
-            builder: (BuildContext context) => new ComplaintCard(desc: complaint.desc, RoomNo: complaint.RoomNo, isResloved: complaint.isResloved, rollNo: complaint.rollNo, category:'carpenter')));
+            builder: (BuildContext context) => new ComplaintCard(desc: complaint.desc, RoomNo: complaint.RoomNo, isResloved: complaint.isResloved, rollNo: complaint.rollNo, category:'food')));
 
   }
 
@@ -61,7 +61,7 @@ class Carpenter extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.pink,
         title: Text(
-          "CARPENTER",
+          "FOOD",
           style: TextStyle(
             color: Colors.white,
           ),

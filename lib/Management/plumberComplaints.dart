@@ -37,7 +37,7 @@ class Plumber extends StatelessWidget {
         var rollNo = doc["rollNo"];
         if(isResloved!='1'){
           Complaint complaint = new Complaint(
-              desc: Desc, RoomNo: RoomNo, isResloved: isResloved, rollNo: rollNo,);
+              desc: Desc, RoomNo: RoomNo, isResloved: isResloved, rollNo: rollNo);
           complaintData.add(complaint);
         }
 
@@ -50,7 +50,7 @@ class Plumber extends StatelessWidget {
      Navigator.pushReplacement(
          context,
          new MaterialPageRoute(
-             builder: (BuildContext context) => new ComplaintCard(desc: complaint.desc, RoomNo: complaint.RoomNo, isResloved: complaint.isResloved, rollNo: complaint.rollNo)));
+             builder: (BuildContext context) => new ComplaintCard(desc: complaint.desc, RoomNo: complaint.RoomNo, isResloved: complaint.isResloved, rollNo: complaint.rollNo, category:'plumber')));
 
    }
 

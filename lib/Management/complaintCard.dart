@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management/Management/carpenterComplaints.dart';
+import 'package:hostel_management/Management/foodComplaints.dart';
+import 'package:hostel_management/Management/othersComplaints.dart';
 import 'package:hostel_management/Management/plumberComplaints.dart';
 
 class ComplaintCard extends StatelessWidget {
@@ -8,25 +11,48 @@ class ComplaintCard extends StatelessWidget {
   final String RoomNo;
   final String isResloved;
   final String rollNo;
+  final String category;
 
   ComplaintCard({
     required this.desc,
     required this.RoomNo,
     required this.isResloved,
     required this.rollNo,
+    required this.category,
   });
 
-  removeComplaint(BuildContext context, String rollNo) {
-    FirebaseFirestore.instance
+  removeComplaint(BuildContext context, String rollNo) async {
+   await FirebaseFirestore.instance
         .collection('Complaints')
-        .doc('plumber')
-        .collection('plumber')
+        .doc(category)
+        .collection(category)
         .doc(rollNo)
         .update({'isResloved': '1'});
-    Navigator.pushReplacement(
-        context,
-        new MaterialPageRoute(
-            builder: (BuildContext context) => new Plumber()));
+    if(category=="plumber"){
+      Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(
+              builder: (BuildContext context) => new Plumber()));
+    }
+    if(category=="carpenter"){
+      Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(
+              builder: (BuildContext context) => new Carpenter()));
+    }
+   if(category=="food"){
+     Navigator.pushReplacement(
+         context,
+         new MaterialPageRoute(
+             builder: (BuildContext context) => new Food()));
+   }
+   if(category=="others"){
+     Navigator.pushReplacement(
+         context,
+         new MaterialPageRoute(
+             builder: (BuildContext context) => new Others()));
+   }
+
   }
 
   @override
@@ -35,7 +61,7 @@ class ComplaintCard extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.pink,
         title: Text(
-          "PLUMBER",
+          category,
           style: TextStyle(
             color: Colors.white,
           ),
