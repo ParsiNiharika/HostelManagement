@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel_management/Student/student_outpass.dart';
+import 'package:hostel_management/Student/student_outpass_form.dart';
 
 import 'Management/ManagementLogin.dart';
 
@@ -14,9 +16,19 @@ class Home extends StatelessWidget {
     );
   }
 
+  showStudentScreen(context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) {
+          return const StudentOutpassForm();
+        },
+      ),
+    );
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Colors.black87,
+      backgroundColor: Colors.black87,
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         title: Text(
@@ -26,9 +38,7 @@ class Home extends StatelessWidget {
           ),
         ),
       ),
-      body:
-      Container(
-
+      body: Container(
         child: SafeArea(
             bottom: false,
             child: Stack(children: <Widget>[
@@ -45,7 +55,9 @@ class Home extends StatelessWidget {
                         constraints:
                             BoxConstraints.tightFor(width: 250, height: 50),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showStudentScreen(context);
+                          },
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                             child: Text(
