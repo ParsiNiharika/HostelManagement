@@ -16,7 +16,6 @@ class _StudentOutpassFormState extends State<StudentOutpassForm> {
   String? bedNo = "";
   String? roomNo = "";
   String? rollno = "";
-  bool? parentConsent = false;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -191,17 +190,6 @@ class _StudentOutpassFormState extends State<StudentOutpassForm> {
 
                   const SizedBox(
                     height: 20,
-                  ),
-
-                  CheckboxListTile(
-                    title: const Text("Parent Agreed"),
-                    value: parentConsent,
-                    onChanged: (bool? newVal) {
-                      setState(() {
-                        parentConsent = newVal;
-                      });
-                    },
-                    activeColor: Colors.pink,
                   ),
 
                   Container(
