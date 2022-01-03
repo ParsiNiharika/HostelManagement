@@ -21,11 +21,7 @@ class Home extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) {
-<<<<<<< HEAD
-          return const StudentOutpassForm();
-=======
           return StudentLogin();
->>>>>>> 0c214f969651b71254001107c17ac59a188392a6
         },
       ),
     );
@@ -60,13 +56,7 @@ class Home extends StatelessWidget {
                         constraints:
                             BoxConstraints.tightFor(width: 250, height: 50),
                         child: ElevatedButton(
-<<<<<<< HEAD
-                          onPressed: () {
-                            showStudentScreen(context);
-                          },
-=======
                           onPressed: () => showStudentScreen(context),
->>>>>>> 0c214f969651b71254001107c17ac59a188392a6
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                             child: Text(
