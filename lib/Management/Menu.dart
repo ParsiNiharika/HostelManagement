@@ -10,8 +10,8 @@ class Menu extends StatelessWidget {
     'Monday',
     'Tuesday',
     'Wednesday',
-    'Thrusday',
-    'Firday',
+    'Thursday',
+    'Friday',
     'Saturday',
     'Sunday'
   ];
