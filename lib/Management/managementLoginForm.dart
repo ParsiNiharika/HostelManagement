@@ -21,19 +21,28 @@ class MyFormState extends State<ManagmentLoginForm> {
   static bool isLogin = false;
 
   showMainScreen(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      if (name == "1" && password == "1") {
-        isLogin = true;
-        return ManagementHomeScreen();
-      } else {
-        return ManagementLogin();
-      }
-    }));
+
+    if(name == "1" && password == "1") {
+      isLogin = true;
+      Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(
+              builder: (BuildContext context) => new ManagementHomeScreen()));
+    }else{
+      Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(
+              builder: (BuildContext context) => new ManagementLogin()));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Scaffold(
+        appBar: AppBar(
+        backgroundColor: Colors.pink,
+    ),
+    body:Padding(
       padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: Container(
         child:Material(
@@ -76,7 +85,7 @@ class MyFormState extends State<ManagmentLoginForm> {
                       ),
                       TextFormField(
                         decoration: const InputDecoration(
-                          icon: const Icon(Icons.phone),
+                          icon: const Icon(Icons.vpn_key),
                           hintText: 'Enter password',
                           labelText: 'Password',
                         ),
@@ -125,6 +134,7 @@ class MyFormState extends State<ManagmentLoginForm> {
             )
         ),
       ),
+    ),
     );
   }
 }

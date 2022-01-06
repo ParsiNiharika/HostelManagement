@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management/Management/ContactUs.dart';
 import 'package:hostel_management/Management/busTimings.dart';
+import 'package:hostel_management/Student/student_complaint.dart';
 import 'package:hostel_management/Student/student_outpass_form.dart';
 import './ViewMenu.dart';
 
@@ -92,7 +93,12 @@ class StudentHomeScreen extends StatelessWidget {
                         constraints:
                             BoxConstraints.tightFor(width: 250, height: 50),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (BuildContext context) => new StudentComplaint()));
+                          },
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                             child: Text(

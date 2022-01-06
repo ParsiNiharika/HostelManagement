@@ -29,9 +29,10 @@ class AddStudent extends StatelessWidget {
             TextButton(
               child: const Text('OK',style: TextStyle(fontSize: 20),),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                    return ManagementHomeScreen();
-                }));
+                Navigator.pushReplacement(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (BuildContext context) => new ManagementHomeScreen()));
               },
             ),
           ],
@@ -42,7 +43,11 @@ class AddStudent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Scaffold(
+        appBar: AppBar(
+        backgroundColor: Colors.pink,
+    ),
+    body:Padding(
       padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: Container(
         child:Material(
@@ -186,6 +191,6 @@ class AddStudent extends StatelessWidget {
             )
         ),
       ),
-    );
+    ),);
   }
 }
