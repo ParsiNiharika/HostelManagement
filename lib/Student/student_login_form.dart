@@ -1,30 +1,34 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hostel_management/Management/management_home_screen.dart';
 
-import 'ManagementLogin.dart';
+import 'student_login.dart';
+import 'student_home_screen.dart';
 
 // Create a Form widget.
-class ManagmentLoginForm extends StatefulWidget {
+class StudentLoginForm extends StatefulWidget {
   @override
   MyFormState createState() {
     return MyFormState();
   }
 }
 
-class MyFormState extends State<ManagmentLoginForm> {
+class MyFormState extends State<StudentLoginForm> {
   final _formKey = GlobalKey<FormState>();
-  String? name = "";
-  String? password = "";
+  String rollno = "";
   static bool isLogin = false;
 
-  showMainScreen(BuildContext context) {
+  showMainScreen(BuildContext context) async {
+    var studentDocRef =
+        FirebaseFirestore.instance.collection('students').doc(rollno);
+    var doc = await studentDocRef.get();
+
     Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      if (name == "1" && password == "1") {
+      if (doc.exists) {
         isLogin = true;
-        return ManagementHomeScreen();
+        return StudentHomeScreen(rollno);
       } else {
-        return ManagementLogin();
+        return StudentLogin();
       }
     }));
   }
@@ -39,8 +43,8 @@ class MyFormState extends State<ManagmentLoginForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Center(
-              child: Text("LOGIN",
+            const Center(
+              child: Text("STUDENT LOGIN",
                   style: TextStyle(
                       color: Colors.pink,
                       fontSize: 50,
@@ -55,33 +59,19 @@ class MyFormState extends State<ManagmentLoginForm> {
                     decoration: const InputDecoration(
                       fillColor: Colors.white,
                       icon: const Icon(Icons.person),
-                      hintText: 'Enter your name',
-                      labelText: 'Name',
+                      hintText: 'Enter your roll number',
+                      labelText: 'Roll Number',
                     ),
                     validator: (value) {
                       if (value != null && value.isEmpty) {
-                        return 'Please enter valid name';
+                        return 'Please enter valid roll number';
                       }
-                      name = value;
+                      rollno = value.toString();
                       return null;
                     },
                   ),
                   SizedBox(
                     height: 20,
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      icon: const Icon(Icons.phone),
-                      hintText: 'Enter password',
-                      labelText: 'Password',
-                    ),
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return 'Please enter valid password';
-                      }
-                      password = value;
-                      return null;
-                    },
                   ),
                   Container(
                     padding: const EdgeInsets.only(top: 40.0),

@@ -204,12 +204,11 @@ class _StudentOutpassFormState extends State<StudentOutpassForm> {
                           if (form != null && !form.validate()) {
                             return;
                           }
-                          print('I am clicked');
                           form?.save();
                           FirebaseFirestore.instance
                               .collection('students')
                               .doc(rollno)
-                              .set({
+                              .update({
                             'outpass': {
                               'roomNo': roomNo,
                               'bedNo': bedNo,

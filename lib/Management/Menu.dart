@@ -2,10 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management/Management/MenuCard.dart';
 
-import 'managemntHomeScreen.dart';
+import 'management_home_screen.dart';
 
 class Menu extends StatelessWidget {
-
   static const weekdays = [
     'Monday',
     'Tuesday',
@@ -27,7 +26,6 @@ class Menu extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-
       ),
       body: ListView.builder(
         itemCount: weekdays.length,
@@ -39,13 +37,12 @@ class Menu extends StatelessWidget {
               ),
               Center(
                 child: ConstrainedBox(
-                  constraints:
-                  BoxConstraints.tightFor(width: 250, height: 50),
+                  constraints: BoxConstraints.tightFor(width: 250, height: 50),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                        return MenuCard(day:weekdays[index]);
-
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (_) {
+                        return MenuCard(day: weekdays[index]);
                       }));
                     },
                     child: Padding(
@@ -59,14 +56,15 @@ class Menu extends StatelessWidget {
                     ),
                     style: ButtonStyle(
                       backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.pink),
+                          MaterialStateProperty.all<Color>(Colors.pink),
                     ),
                   ),
                 ),
               ),
             ],
           );
-        },),
+        },
+      ),
     );
   }
 }
