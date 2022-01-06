@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
 class Outpass {
   final String reason;
@@ -9,6 +9,7 @@ class Outpass {
   final String time;
   final bool status;
   final String name;
+  final bool parentAccepted;
 
   Outpass(
       {required this.name,
@@ -17,17 +18,18 @@ class Outpass {
       required this.date,
       required this.time,
       required this.reason,
-      required this.status});
+      required this.status,
+      required this.parentAccepted});
 }
 
-class StudentOutpass extends StatefulWidget {
+class ParentHomeScreen extends StatefulWidget {
   final String? rollno;
-  const StudentOutpass({Key? key, this.rollno}) : super(key: key);
+  const ParentHomeScreen({Key? key, this.rollno}) : super(key: key);
   @override
-  _StudentOutpassState createState() => _StudentOutpassState();
+  _ParentHomeScreenState createState() => _ParentHomeScreenState();
 }
 
-class _StudentOutpassState extends State<StudentOutpass> {
+class _ParentHomeScreenState extends State<ParentHomeScreen> {
   String? rollno;
   List<Outpass> outpass = [];
   Future<void> getOutpass() async {
@@ -43,6 +45,7 @@ class _StudentOutpassState extends State<StudentOutpass> {
       var time = doc["outpass"]["time"];
       var status = doc["outpass"]["status"];
       var name = doc['name'];
+      var parentAccepted = doc["outpass"]["parentAccepted"];
       Outpass pass = Outpass(
         name: name,
         roomno: roomno,
@@ -51,6 +54,7 @@ class _StudentOutpassState extends State<StudentOutpass> {
         time: time,
         reason: reason,
         status: status,
+        parentAccepted: parentAccepted,
       );
       outpass.add(pass);
     });
@@ -59,6 +63,7 @@ class _StudentOutpassState extends State<StudentOutpass> {
   @override
   Widget build(BuildContext context) {
     rollno = widget.rollno;
+    bool? _checked = false;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pink,
@@ -82,23 +87,13 @@ class _StudentOutpassState extends State<StudentOutpass> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
                         elevation: 4,
-                        margin: EdgeInsets.all(15),
+                        margin: const EdgeInsets.all(15),
                         child: Padding(
-                          padding: EdgeInsets.all(20),
-                          child: (outpass[index].status == true)
+                          padding: const EdgeInsets.all(20),
+                          child: (outpass[index].parentAccepted == false &&
+                                  _checked == false)
                               ? Column(
                                   children: <Widget>[
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    const Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Text("Granted",
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              color: Colors.green,
-                                              fontWeight: FontWeight.bold,
-                                            ))),
                                     const SizedBox(
                                       height: 20,
                                     ),
@@ -173,9 +168,35 @@ class _StudentOutpassState extends State<StudentOutpass> {
                                     const SizedBox(
                                       height: 20,
                                     ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        FirebaseFirestore.instance
+                                            .collection('students')
+                                            .doc(rollno)
+                                            .update({
+                                          "outpass": {
+                                            "roomNo": outpass[index].roomno,
+                                            "bedNo": outpass[index].bedno,
+                                            "status": outpass[index].status,
+                                            "date": outpass[index].date,
+                                            "time": outpass[index].time,
+                                            "reason": outpass[index].reason,
+                                            "parentAccepted": true
+                                          }
+                                        });
+                                        setState(() {
+                                          _checked = true;
+                                        });
+                                      },
+                                      child: const Text(
+                                          "I Accept My child's Request"),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
                                   ],
                                 )
-                              : const Text("Pending",
+                              : const Text("Outpass will be granted soon",
                                   style: TextStyle(
                                     fontSize: 25,
                                     color: Colors.red,

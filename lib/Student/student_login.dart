@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'StudentLoginForm.dart';
+import 'student_login_form.dart';
 
 class StudentLogin extends StatelessWidget {
   @override

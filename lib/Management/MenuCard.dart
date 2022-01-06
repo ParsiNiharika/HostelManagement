@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_management/Management/Menu.dart';
 
-import 'managemntHomeScreen.dart';
+import 'management_home_screen.dart';
 
 class MenuItem {
   final String Breakfast;
@@ -47,7 +47,8 @@ class MenuCard extends StatelessWidget {
     });
   }
 
-  Future<void> _showMyDialog(BuildContext context, String menuTime,String menuData) async {
+  Future<void> _showMyDialog(
+      BuildContext context, String menuTime, String menuData) async {
     return showDialog<void>(
       context: context,
       // barrierDismissible: false, // user must tap button!
@@ -85,22 +86,27 @@ class MenuCard extends StatelessWidget {
           ),
           actions: <Widget>[
             ElevatedButton(
-              onPressed: (){
+              onPressed: () {
                 final form = _formKey.currentState;
                 if (form != null && !form.validate()) {
                   return;
                 }
                 form?.save();
-                var menuArray=menu?.split(" ");
+                var menuArray = menu?.split(" ");
                 FirebaseFirestore.instance
                     .collection('Menu')
                     .doc(day)
-                    .update({menuTime:menuArray});
+                    .update({menuTime: menuArray});
+                Navigator.of(context)
+                    .pop(MaterialPageRoute(builder: (_) {
+                  return const AlertDialog();
+                }));
                 Navigator.pushReplacement(
                     context,
                     new MaterialPageRoute(
-                        builder: (BuildContext context) => new MenuCard(day: day)));
-              } ,
+                        builder: (BuildContext context) =>
+                            new MenuCard(day: day)));
+              },
               child: Padding(
                 padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                 child: Text(
@@ -111,8 +117,7 @@ class MenuCard extends StatelessWidget {
                 ),
               ),
               style: ButtonStyle(
-                backgroundColor:
-                MaterialStateProperty.all<Color>(Colors.pink),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.pink),
               ),
             ),
           ],
@@ -181,7 +186,7 @@ class MenuCard extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       child: ElevatedButton(
                         onPressed: () {
-                          _showMyDialog(context, time[index],menuItems[index]);
+                          _showMyDialog(context, time[index], menuItems[index]);
                         },
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(20, 10, 20, 10),

@@ -41,9 +41,16 @@ class _StudentOutpassFormState extends State<StudentOutpassForm> {
                 style: TextStyle(fontSize: 20),
               ),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                  return const StudentOutpass();
+
+                Navigator.of(context)
+                    .pop(MaterialPageRoute(builder: (_) {
+                  return const AlertDialog();
                 }));
+                Navigator.pushReplacement(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (BuildContext context) => new StudentOutpass()));
+
               },
             ),
           ],
@@ -204,12 +211,11 @@ class _StudentOutpassFormState extends State<StudentOutpassForm> {
                           if (form != null && !form.validate()) {
                             return;
                           }
-                          print('I am clicked');
                           form?.save();
                           FirebaseFirestore.instance
                               .collection('students')
                               .doc(rollno)
-                              .set({
+                              .update({
                             'outpass': {
                               'roomNo': roomNo,
                               'bedNo': bedNo,

@@ -1,55 +1,57 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hostel_management/Management/management_home_screen.dart';
-
-import 'ManagementLogin.dart';
+import 'package:hostel_management/Parent/parent_home.dart';
+import 'package:hostel_management/Parent/parent_login.dart';
 
 // Create a Form widget.
-class ManagmentLoginForm extends StatefulWidget {
+class ParentLoginForm extends StatefulWidget {
   @override
   MyFormState createState() {
     return MyFormState();
   }
 }
 
-class MyFormState extends State<ManagmentLoginForm> {
+class MyFormState extends State<ParentLoginForm> {
   final _formKey = GlobalKey<FormState>();
-  String? name = "";
-  String? password = "";
+  String rollno = "";
   static bool isLogin = false;
 
-  showMainScreen(BuildContext context) {
+  showMainScreen(BuildContext context) async {
+    var studentDocRef =
+        FirebaseFirestore.instance.collection('students').doc(rollno);
+    var doc = await studentDocRef.get();
 
-    if(name == "1" && password == "1") {
+    if(doc.exists) {
       isLogin = true;
       Navigator.pushReplacement(
           context,
           new MaterialPageRoute(
-              builder: (BuildContext context) => new ManagementHomeScreen()));
+              builder: (BuildContext context) => new ParentHomeScreen(rollno: rollno)));
     }else{
       Navigator.pushReplacement(
           context,
           new MaterialPageRoute(
-              builder: (BuildContext context) => new ManagementLogin()));
+              builder: (BuildContext context) => new ParentLogin()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
         appBar: AppBar(
         backgroundColor: Colors.pink,
     ),
     body:Padding(
-      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: Container(
         child: Material(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Center(
-              child: Text("LOGIN",
+            const Center(
+              child: Text("PARENT LOGIN",
                   style: TextStyle(
                       color: Colors.pink,
                       fontSize: 50,
@@ -63,34 +65,20 @@ class MyFormState extends State<ManagmentLoginForm> {
                   TextFormField(
                     decoration: const InputDecoration(
                       fillColor: Colors.white,
-                      icon: const Icon(Icons.person),
-                      hintText: 'Enter your name',
-                      labelText: 'Name',
+                      icon: Icon(Icons.person),
+                      hintText: 'Enter your roll number',
+                      labelText: 'Roll Number',
                     ),
                     validator: (value) {
                       if (value != null && value.isEmpty) {
-                        return 'Please enter valid name';
+                        return 'Please enter valid roll number';
                       }
-                      name = value;
+                      rollno = value.toString();
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      icon: const Icon(Icons.vpn_key),
-                      hintText: 'Enter password',
-                      labelText: 'Password',
-                    ),
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return 'Please enter valid password';
-                      }
-                      password = value;
-                      return null;
-                    },
                   ),
                   Container(
                     padding: const EdgeInsets.only(top: 40.0),
@@ -107,7 +95,7 @@ class MyFormState extends State<ManagmentLoginForm> {
                           form?.save();
                           showMainScreen(context);
                         },
-                        child: Padding(
+                        child: const Padding(
                           padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                           child: Text(
                             'Submit',
@@ -129,7 +117,6 @@ class MyFormState extends State<ManagmentLoginForm> {
           ],
         )),
       ),
-    ),
-    );
+    ),);
   }
 }

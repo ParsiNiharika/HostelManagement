@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
+import 'package:hostel_management/Student/student_home_screen.dart';
 import 'package:hostel_management/Student/student_outpass_form.dart';
-
-import 'StudentHomeScreen.dart';
 
 class StudentComplaint extends StatelessWidget {
     final _formKey = GlobalKey<FormState>();
     String? RoomNo = "";
     String? Desc = "";
-    String? rollNo = "";
+    String rollNo = "";
     String category="";
 
     Future<void> _showMyDialog(BuildContext context) async {
@@ -37,7 +36,7 @@ class StudentComplaint extends StatelessWidget {
                   Navigator.pushReplacement(
                       context,
                       new MaterialPageRoute(
-                          builder: (BuildContext context) => new StudentHomeScreen()));
+                          builder: (BuildContext context) => new StudentHomeScreen(rollNo)));
                 },
               ),
             ],
@@ -48,7 +47,17 @@ class StudentComplaint extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
-      return Padding(
+      return Scaffold(
+          appBar: AppBar(
+          backgroundColor: Colors.pink,
+          title: const Text(
+          "ADD COMPLAINT",
+          style: TextStyle(
+          color: Colors.white,
+      ),
+      ),
+      ),
+      body:Padding(
         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: Container(
           child:Material(
@@ -74,7 +83,7 @@ class StudentComplaint extends StatelessWidget {
 
                         TextFormField(
                           decoration: const InputDecoration(
-                            icon: const Icon(Icons.phone),
+                            icon: const Icon(Icons.category),
                             hintText: 'Enter Category ',
                             labelText: 'Category',
                           ),
@@ -101,7 +110,7 @@ class StudentComplaint extends StatelessWidget {
                             if (value != null && value.isEmpty) {
                               return 'Please enter valid roll no';
                             }
-                            rollNo = value;
+                            rollNo = value!;
                             return null;
                           },
                         ),
@@ -132,7 +141,7 @@ class StudentComplaint extends StatelessWidget {
 
                         TextFormField(
                           decoration: const InputDecoration(
-                            icon: const Icon(Icons.phone),
+                            icon: const Icon(Icons.home),
                             hintText: 'Enter Room No',
                             labelText: 'Room No',
                           ),
@@ -193,6 +202,6 @@ class StudentComplaint extends StatelessWidget {
               )
           ),
         ),
-      );
+      ),);
     }
   }

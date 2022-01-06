@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hostel_management/Student/student_outpass.dart';
-import 'package:hostel_management/Student/student_outpass_form.dart';
-
+import 'package:hostel_management/Parent/parent_login.dart';
 import 'Management/ManagementLogin.dart';
-import 'Student/StudentLogin.dart';
+import 'Student/student_login.dart';
 
 class Home extends StatelessWidget {
   showManagmentScreen(context) {
@@ -27,11 +25,22 @@ class Home extends StatelessWidget {
     );
   }
 
+  showParentScreen(context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) {
+          return ParentLogin();
+        },
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pink,
-        title: Text(
+        title: const Text(
           "HOSTEL MANAGEMENT",
           style: TextStyle(
             color: Colors.white,
@@ -47,16 +56,16 @@ class Home extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Center(
                       child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints.tightFor(width: 250, height: 50),
+                        constraints: const BoxConstraints.tightFor(
+                            width: 250, height: 50),
                         child: ElevatedButton(
                           onPressed: () => showStudentScreen(context),
-                          child: Padding(
+                          child: const Padding(
                             padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                             child: Text(
                               'Student',
@@ -72,14 +81,14 @@ class Home extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Center(
                       child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints.tightFor(width: 250, height: 50),
+                        constraints: const BoxConstraints.tightFor(
+                            width: 250, height: 50),
                         child: ElevatedButton(
-                          onPressed: () {},
-                          child: Padding(
+                          onPressed: () => showParentScreen(context),
+                          child: const Padding(
                             padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                             child: Text(
                               'Parent',
@@ -95,14 +104,14 @@ class Home extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Center(
                       child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints.tightFor(width: 250, height: 50),
+                        constraints: const BoxConstraints.tightFor(
+                            width: 250, height: 50),
                         child: ElevatedButton(
                           onPressed: () => showManagmentScreen(context),
-                          child: Padding(
+                          child: const Padding(
                             padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                             child: Text(
                               'Management',
@@ -118,7 +127,7 @@ class Home extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                   ]))
             ])),
       ),

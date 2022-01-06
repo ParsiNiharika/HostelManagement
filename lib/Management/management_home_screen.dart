@@ -1,20 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hostel_management/Management/ContactUs.dart';
-import 'package:hostel_management/Management/busTimings.dart';
-import 'package:hostel_management/Student/student_complaint.dart';
-import 'package:hostel_management/Student/student_outpass_form.dart';
-import './ViewMenu.dart';
+import 'package:hostel_management/Management/Complaints.dart';
+import 'package:hostel_management/Management/grant_outpass.dart';
+import './addStudent.dart';
+import './busTimings.dart';
+import './ContactUs.dart';
+import './Complaints.dart';
+import 'Menu.dart';
 
-class StudentHomeScreen extends StatelessWidget {
+class ManagementHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.pink,
-        title: Text(
-          "Student",
+        title: const Text(
+          "MANAGEMENT",
           style: TextStyle(
             color: Colors.white,
           ),
@@ -29,13 +31,41 @@ class StudentHomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Center(
                       child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints.tightFor(width: 250, height: 50),
+                        constraints: const BoxConstraints.tightFor(
+                            width: 250, height: 50),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (_) {
+                              return AddStudent();
+                            }));
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                            child: Text(
+                              'ADD STUDENT',
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.pink),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints.tightFor(
+                            width: 250, height: 50),
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.of(context)
@@ -43,7 +73,7 @@ class StudentHomeScreen extends StatelessWidget {
                               return BusTimings();
                             }));
                           },
-                          child: Padding(
+                          child: const Padding(
                             padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                             child: Text(
                               'BUS TIMINGS',
@@ -59,19 +89,47 @@ class StudentHomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Center(
                       child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints.tightFor(width: 250, height: 50),
+                        constraints: const BoxConstraints.tightFor(
+                            width: 250, height: 50),
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (_) {
-                              return ViewMenu();
+                              return ContactUs();
                             }));
                           },
-                          child: Padding(
+                          child: const Padding(
+                            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                            child: Text(
+                              'CONTACT US',
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.pink),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints.tightFor(
+                            width: 250, height: 50),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (_) {
+                              return Menu();
+                            }));
+                          },
+                          child: const Padding(
                             padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                             child: Text(
                               'MENU',
@@ -87,22 +145,22 @@ class StudentHomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Center(
                       child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints.tightFor(width: 250, height: 50),
+                        constraints: const BoxConstraints.tightFor(
+                            width: 250, height: 50),
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                new MaterialPageRoute(
-                                    builder: (BuildContext context) => new StudentComplaint()));
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (_) {
+                              return Complaints();
+                            }));
                           },
-                          child: Padding(
+                          child: const Padding(
                             padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                             child: Text(
-                              'FILE A COMPLAINT',
+                              'COMPLAINTS',
                               style: TextStyle(
                                 fontSize: 18,
                               ),
@@ -115,50 +173,22 @@ class StudentHomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Center(
                       child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints.tightFor(width: 250, height: 50),
+                        constraints: const BoxConstraints.tightFor(
+                            width: 250, height: 50),
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (_) {
-                              return const StudentOutpassForm();
+                              return const GrantOutpass();
                             }));
                           },
-                          child: Padding(
+                          child: const Padding(
                             padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                             child: Text(
-                              'REQUEST OUTPASS',
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.pink),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Center(
-                      child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints.tightFor(width: 250, height: 50),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (_) {
-                              return ContactUs();
-                            }));
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                            child: Text(
-                              'CONTACT US',
+                              'OUTPASSES',
                               style: TextStyle(
                                 fontSize: 18,
                               ),
