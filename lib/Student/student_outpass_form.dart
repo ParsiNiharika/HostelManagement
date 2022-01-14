@@ -41,16 +41,14 @@ class _StudentOutpassFormState extends State<StudentOutpassForm> {
                 style: TextStyle(fontSize: 20),
               ),
               onPressed: () {
-
-                Navigator.of(context)
-                    .pop(MaterialPageRoute(builder: (_) {
+                Navigator.of(context).pop(MaterialPageRoute(builder: (_) {
                   return const AlertDialog();
                 }));
                 Navigator.pushReplacement(
                     context,
                     new MaterialPageRoute(
-                        builder: (BuildContext context) => new StudentOutpass()));
-
+                        builder: (BuildContext context) =>
+                            new StudentOutpass()));
               },
             ),
           ],
@@ -61,199 +59,203 @@ class _StudentOutpassFormState extends State<StudentOutpassForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-      child: Container(
+    return Container(
         height: 200,
         width: 300,
         child: Material(
+          child: SingleChildScrollView(
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Center(
-              child: Text("Request Outpass",
-                  style: TextStyle(
-                      color: Colors.pink,
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold)),
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  //First we take the student roll no
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      fillColor: Colors.white,
-                      icon: Icon(Icons.person),
-                      hintText: 'Enter your roll number',
-                      labelText: 'Student Roll number',
-                    ),
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return 'Please enter valid roll number';
-                      }
-                      rollno = value;
-                      return null;
-                    },
-                  ),
-
-                  //This is to provide a bit of padding
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.home),
-                      hintText: 'Enter Room.No',
-                      labelText: 'Room.No',
-                    ),
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return 'Please enter valid phone number';
-                      }
-                      roomNo = value;
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.bed_outlined),
-                      hintText: 'Enter Bed.No',
-                      labelText: 'Bed.No',
-                    ),
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return 'Please enter valid phone number';
-                      }
-                      bedNo = value;
-                      return null;
-                    },
-                  ),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // //we must have a row that contains datepicker
-                  Text('${date?.day} ${date?.month} ${date?.year}'),
-                  ElevatedButton(
-                      onPressed: () async {
-                        DateTime? newDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(2023));
-                        if (newDate != null) {
-                          setState(() {
-                            date = newDate;
-                          });
-                        }
-                      },
-                      child: const Text("Select Date")),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text('${time!.hour.toString()}:${time!.minute.toString()}'),
-                  ElevatedButton(
-                      onPressed: () async {
-                        TimeOfDay? newTime = await showTimePicker(
-                            context: context,
-                            initialTime: const TimeOfDay(hour: 12, minute: 0));
-                        if (newTime != null) {
-                          setState(() {
-                            time = newTime;
-                          });
-                        }
-                      },
-                      child: const Text("Select Time")),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      fillColor: Colors.white,
-                      icon: Icon(Icons.phone),
-                      hintText: 'Enter Reason',
-                      labelText: 'Reason',
-                    ),
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return 'Please enter valid reason';
-                      }
-                      reason = value;
-                      return null;
-                    },
-                  ),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  Container(
-                    padding: const EdgeInsets.only(top: 40.0),
-                    child: Center(
-                      // child: ConstrainedBox(
-                      // constraints:
-                      //     BoxConstraints.tightFor(width: 250, height: 50),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          final form = _formKey.currentState;
-                          if (form != null && !form.validate()) {
-                            return;
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                const Center(
+                  child: Text("Request Outpass",
+                      style: TextStyle(
+                          color: Colors.pink,
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold)),
+                ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      //First we take the student roll no
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          fillColor: Colors.white,
+                          icon: Icon(Icons.person),
+                          hintText: 'Enter your roll number',
+                          labelText: 'Student Roll number',
+                        ),
+                        validator: (value) {
+                          if (value != null && value.isEmpty) {
+                            return 'Please enter valid roll number';
                           }
-                          form?.save();
-                          FirebaseFirestore.instance
-                              .collection('students')
-                              .doc(rollno)
-                              .update({
-                            'outpass': {
-                              'roomNo': roomNo,
-                              'bedNo': bedNo,
-                              'date':
-                                  '${date?.day} ${date?.month} ${date?.year}',
-                              'time':
-                                  '${time!.hour.toString()}:${time!.minute.toString()}',
-                              'reason': reason,
-                              'parentAccepted': false,
-                              'status': false,
-                            }
-                          });
-                          _showMyDialog(context);
-                          //ManagementHomeScreen();
+                          rollno = value;
+                          return null;
                         },
-                        child: const Padding(
-                          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                          child: Text(
-                            'Submit',
-                            style: TextStyle(
-                              fontSize: 18,
+                      ),
+
+                      //This is to provide a bit of padding
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.home),
+                          hintText: 'Enter Room.No',
+                          labelText: 'Room.No',
+                        ),
+                        validator: (value) {
+                          if (value != null && value.isEmpty) {
+                            return 'Please enter valid phone number';
+                          }
+                          roomNo = value;
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.bed_outlined),
+                          hintText: 'Enter Bed.No',
+                          labelText: 'Bed.No',
+                        ),
+                        validator: (value) {
+                          if (value != null && value.isEmpty) {
+                            return 'Please enter valid phone number';
+                          }
+                          bedNo = value;
+                          return null;
+                        },
+                      ),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      // //we must have a row that contains datepicker
+                      Text('${date?.day} ${date?.month} ${date?.year}'),
+                      ElevatedButton(
+                          onPressed: () async {
+                            DateTime? newDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2023));
+                            if (newDate != null) {
+                              setState(() {
+                                date = newDate;
+                              });
+                            }
+                          },
+                          child: const Text("Select Date")),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                          '${time!.hour.toString()}:${time!.minute.toString()}'),
+                      ElevatedButton(
+                          onPressed: () async {
+                            TimeOfDay? newTime = await showTimePicker(
+                                context: context,
+                                initialTime:
+                                    const TimeOfDay(hour: 12, minute: 0));
+                            if (newTime != null) {
+                              setState(() {
+                                time = newTime;
+                              });
+                            }
+                          },
+                          child: const Text("Select Time")),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          fillColor: Colors.white,
+                          icon: Icon(Icons.phone),
+                          hintText: 'Enter Reason',
+                          labelText: 'Reason',
+                        ),
+                        validator: (value) {
+                          if (value != null && value.isEmpty) {
+                            return 'Please enter valid reason';
+                          }
+                          reason = value;
+                          return null;
+                        },
+                      ),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      Container(
+                        padding: const EdgeInsets.only(top: 40.0),
+                        child: Center(
+                          // child: ConstrainedBox(
+                          // constraints:
+                          //     BoxConstraints.tightFor(width: 250, height: 50),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              final form = _formKey.currentState;
+                              if (form != null && !form.validate()) {
+                                return;
+                              }
+                              form?.save();
+                              FirebaseFirestore.instance
+                                  .collection('students')
+                                  .doc(rollno)
+                                  .update({
+                                'outpass': {
+                                  'roomNo': roomNo,
+                                  'bedNo': bedNo,
+                                  'date':
+                                      '${date?.day} ${date?.month} ${date?.year}',
+                                  'time':
+                                      '${time!.hour.toString()}:${time!.minute.toString()}',
+                                  'reason': reason,
+                                  'parentAccepted': false,
+                                  'status': false,
+                                }
+                              });
+                              _showMyDialog(context);
+                              //ManagementHomeScreen();
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                              child: Text(
+                                'Submit',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.pink),
                             ),
                           ),
                         ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.pink),
-                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        )),
-      ),
-    );
-    ;
+          ),
+        ),
+      );
   }
 }

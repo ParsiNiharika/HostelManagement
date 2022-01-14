@@ -14,7 +14,7 @@ class BusTimings extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Center(
